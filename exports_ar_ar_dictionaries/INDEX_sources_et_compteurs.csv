@@ -1,0 +1,10 @@
+﻿dictionary,rows,file,source,source_table,status,skipped_empty
+MURAD,95745,exports_ar_ar_dictionaries\dictionnaire_ar_ar_murad.csv,local HuggingFace MURAD export already present,,copied_existing,0
+Al-Ghani,29810,exports_ar_ar_dictionaries\dictionnaire_ar_ar_al_ghani.csv,wizsk/arabic_lexicons assets/data/db/db.sqlite.zip,mujamul_ghoni,exported,0
+Mukhtar/Al-Sihah,5650,exports_ar_ar_dictionaries\dictionnaire_ar_ar_mukhtar_al_sihah.csv,wizsk/arabic_lexicons assets/data/db/db.sqlite.zip,mujamul_shihah,exported,0
+Lisan al-Arab,9352,exports_ar_ar_dictionaries\dictionnaire_ar_ar_lisan_al_arab.csv,wizsk/arabic_lexicons assets/data/db/db.sqlite.zip,lisanularab,exported,0
+Al-Mujam al-Muasirah,32297,exports_ar_ar_dictionaries\dictionnaire_ar_ar_al_muashirah.csv,wizsk/arabic_lexicons assets/data/db/db.sqlite.zip,mujamul_muashiroh,exported,0
+Al-Mujam al-Waseet,6763,exports_ar_ar_dictionaries\dictionnaire_ar_ar_al_waseet.csv,wizsk/arabic_lexicons assets/data/db/db.sqlite.zip,mujamul_wasith,exported,0
+Al-Qamus al-Muhit,38944,exports_ar_ar_dictionaries\dictionnaire_ar_ar_qamus_al_muhit.csv,wizsk/arabic_lexicons assets/data/db/db.sqlite.zip,mujamul_muhith,exported,0
+Maqayis al-Lugha,5274,exports_ar_ar_dictionaries\dictionnaire_ar_ar_maqayis_al_lugha.csv,wizsk/arabic_lexicons assets/data/db/db.sqlite.zip,maqayeesul_luga,exported,0
+Mufradat Alfaz al-Quran,1630,exports_ar_ar_dictionaries\dictionnaire_ar_ar_mufradat_alfaz_al_quran.csv,wizsk/arabic_lexicons assets/data/db/db.sqlite.zip,mufradat_alfajul_quran,exported,0

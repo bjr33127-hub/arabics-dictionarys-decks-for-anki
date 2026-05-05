@@ -1,0 +1,282 @@
+<div class="lex-card lex-back">
+  <div class="lex-frame">
+    <header class="lex-top">
+      <div class="lex-top-main">
+        <span class="lex-chip">AR / AR</span>
+        <span class="lex-label">الكلمة</span>
+      </div>
+      <label class="lex-lang-control">
+        <span>Almaany</span>
+        <select class="lex-lang-select" aria-label="Langue de destination Almaany">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="de">Deutsch</option>
+          <option value="pt">Português</option>
+          <option value="tr">Türkçe</option>
+          <option value="fa">فارسی</option>
+          <option value="ur">اردو</option>
+          <option value="ru">Русский</option>
+          <option value="id">Indonesia</option>
+          <option value="ar">العربية</option>
+        </select>
+      </label>
+    </header>
+
+    <main class="lex-word-wrap compact">
+      <div class="lex-word">{{word}}</div>
+    </main>
+
+    <section class="lex-definition-panel">
+      <div class="lex-section-title">التعريف</div>
+      <div class="lex-definition">{{definition}}</div>
+    </section>
+  </div>
+
+  <div class="lex-lookup" aria-hidden="true">
+    <div class="lex-lookup-backdrop" data-lookup-close="true"></div>
+    <section class="lex-lookup-panel lex-lookup-panel-compact" aria-label="Recherche Almaany">
+      <header class="lex-lookup-header">
+        <div>
+          <div class="lex-lookup-kicker">Almaany</div>
+          <div class="lex-lookup-word"></div>
+        </div>
+        <button class="lex-lookup-close" type="button" data-lookup-close="true">×</button>
+      </header>
+
+      <div class="lex-lookup-actions">
+        <a class="lex-lookup-link" href="#" target="_blank" rel="noopener">Ouvrir Almaany</a>
+        <span class="lex-lookup-hint">Le mot cliqué ouvre seulement cette bulle. Le bouton ouvre le site.</span>
+      </div>
+
+    </section>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.querySelector(".lex-back");
+  if (!root) return;
+
+  var definitionNode = root.querySelector(".lex-definition");
+  var wordNode = root.querySelector(".lex-word");
+  var lookup = root.querySelector(".lex-lookup");
+  var lookupWordNode = root.querySelector(".lex-lookup-word");
+  var lookupLink = root.querySelector(".lex-lookup-link");
+  var languageSelect = root.querySelector(".lex-lang-select");
+  if (!definitionNode || !wordNode || !lookup || !lookupWordNode || !lookupLink) return;
+
+  var rawDefinition = definitionNode.textContent || "";
+  var headword = (wordNode.textContent || "").trim();
+  var languageStorageKey = "lex-almaany-target-language";
+  var almaanyLanguages = {
+    fr: { site: "fr", pair: "ar-fr", label: "Français" },
+    en: { site: "en", pair: "ar-en", label: "English" },
+    es: { site: "es", pair: "ar-es", label: "Español" },
+    de: { site: "de", pair: "ar-de", label: "Deutsch" },
+    pt: { site: "pt", pair: "ar-pt", label: "Português" },
+    tr: { site: "tr", pair: "ar-tr", label: "Türkçe" },
+    fa: { site: "fa", pair: "ar-fa", label: "فارسی" },
+    ur: { site: "ur", pair: "ar-ur", label: "اردو" },
+    ru: { site: "ru", pair: "ar-ru", label: "Русский" },
+    id: { site: "id", pair: "ar-id", label: "Indonesia" },
+    ar: { site: "ar", pair: "ar-ar", label: "العربية" }
+  };
+
+  function escapeHtml(value) {
+    return value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function escapeRegex(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function stripHarakat(value) {
+    return value.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "");
+  }
+
+  function isArabicWordChar(value) {
+    return /[\u0621-\u064A\u064B-\u065F\u0670\u066E-\u06D3\u06D6-\u06ED\u06FA-\u06FCـ]/.test(value);
+  }
+
+  function cleanLookupWord(value) {
+    return stripHarakat(value)
+      .replace(/ـ/g, "")
+      .replace(/[^\u0621-\u064A\u066E-\u06D3\u06FA-\u06FC]/g, "")
+      .trim();
+  }
+
+  function readTargetLanguage() {
+    var value = "fr";
+    try {
+      value = localStorage.getItem(languageStorageKey) || value;
+    } catch (error) {}
+    if (languageSelect && languageSelect.value) value = languageSelect.value;
+    return almaanyLanguages[value] ? value : "fr";
+  }
+
+  function saveTargetLanguage(value) {
+    if (!almaanyLanguages[value]) value = "fr";
+    try {
+      localStorage.setItem(languageStorageKey, value);
+    } catch (error) {}
+  }
+
+  function syncLanguageSelect() {
+    if (!languageSelect) return;
+    var value = "fr";
+    try {
+      value = localStorage.getItem(languageStorageKey) || value;
+    } catch (error) {}
+    languageSelect.value = almaanyLanguages[value] ? value : "fr";
+  }
+
+  function selectedLanguageLabel() {
+    return almaanyLanguages[readTargetLanguage()].label;
+  }
+
+  function almaanyUrl(word) {
+    var target = almaanyLanguages[readTargetLanguage()];
+    return "https://www.almaany.com/" + target.site + "/dict/" + target.pair + "/" + encodeURIComponent(word) + "/";
+  }
+
+  function lookupWordFromToken(token) {
+    var container = token.closest(".lex-definition") || definitionNode;
+    var tokenText = token.textContent || "";
+    var text = container.textContent || "";
+
+    try {
+      var range = document.createRange();
+      range.setStart(container, 0);
+      range.setEndBefore(token);
+
+      var start = range.toString().length;
+      var end = start + tokenText.length;
+
+      while (start > 0 && isArabicWordChar(text.charAt(start - 1))) start--;
+      while (end < text.length && isArabicWordChar(text.charAt(end))) end++;
+
+      var expanded = cleanLookupWord(text.slice(start, end));
+      if (expanded) return expanded;
+    } catch (error) {}
+
+    return cleanLookupWord(token.getAttribute("data-lookup-word") || tokenText);
+  }
+
+  function wrapArabicWords(container) {
+    var arabicToken = /[\u0621-\u064A\u066E-\u06D3\u06FA-\u06FC][\u0621-\u064A\u064B-\u065F\u0670\u066E-\u06D3\u06D6-\u06ED\u06FA-\u06FCـ]*/g;
+    var walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        if (!node.nodeValue || !arabicToken.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+        arabicToken.lastIndex = 0;
+        if (node.parentElement && node.parentElement.closest("a, button, .lex-lookup")) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    var textNodes = [];
+    var node;
+    while ((node = walker.nextNode())) textNodes.push(node);
+
+    textNodes.forEach(function (textNode) {
+      var text = textNode.nodeValue;
+      var fragment = document.createDocumentFragment();
+      var lastIndex = 0;
+      arabicToken.lastIndex = 0;
+
+      text.replace(arabicToken, function (match, offset) {
+        if (offset > lastIndex) fragment.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+
+        var lookupWord = cleanLookupWord(match);
+        if (lookupWord) {
+          var span = document.createElement("span");
+          span.className = "lex-token";
+          span.textContent = match;
+          span.setAttribute("data-lookup-word", lookupWord);
+          fragment.appendChild(span);
+        } else {
+          fragment.appendChild(document.createTextNode(match));
+        }
+
+        lastIndex = offset + match.length;
+        return match;
+      });
+
+      if (lastIndex < text.length) fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
+  }
+
+  function showLookup(word) {
+    var url = almaanyUrl(word);
+    lookupWordNode.textContent = word;
+    lookupLink.setAttribute("data-external-url", url);
+    lookupLink.href = url;
+    lookupLink.setAttribute("target", "_blank");
+    lookupLink.textContent = "Ouvrir Almaany (" + selectedLanguageLabel() + ")";
+    lookup.classList.add("is-open");
+    lookup.setAttribute("aria-hidden", "false");
+  }
+
+  function closeLookup() {
+    lookup.classList.remove("is-open");
+    lookup.setAttribute("aria-hidden", "true");
+  }
+
+  var html = escapeHtml(rawDefinition);
+
+  html = html.replace(/(﴿[^﴾]+﴾)/g, '<span class="lex-hi-quran">$1</span>');
+  html = html.replace(/(\[[^\]]+\])/g, '<span class="lex-hi-note">$1</span>');
+  html = html.replace(/(^|[\s؛،.])([0-9٠-٩]+[\-.])/g, '$1<span class="lex-hi-num">$2</span>');
+  html = html.replace(/(^|[\s؛،.])([أإآء-ي]{2,18})(?=\s*:)/g, '$1<span class="lex-hi-term">$2</span>');
+
+  if (headword) {
+    var cleanHeadword = stripHarakat(headword);
+    if (cleanHeadword.length > 1) {
+      var arabicWordChars = "\\u0621-\\u064A\\u064B-\\u065F\\u0670\\u066E-\\u06D3\\u06D6-\\u06ED\\u06FA-\\u06FCـ";
+      var headwordPattern = new RegExp("(^|[^" + arabicWordChars + "])(" + escapeRegex(cleanHeadword) + ")(?=$|[^" + arabicWordChars + "])", "g");
+      html = html.replace(headwordPattern, '$1<span class="lex-hi-headword">$2</span>');
+    }
+  }
+
+  definitionNode.innerHTML = html;
+  wrapArabicWords(definitionNode);
+  syncLanguageSelect();
+
+  if (languageSelect) {
+    languageSelect.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+    languageSelect.addEventListener("change", function () {
+      saveTargetLanguage(languageSelect.value);
+    });
+  }
+
+  definitionNode.addEventListener("click", function (event) {
+    var token = event.target.closest(".lex-token");
+    if (!token) return;
+    event.preventDefault();
+    event.stopPropagation();
+    var lookupWord = lookupWordFromToken(token);
+    if (!lookupWord) return;
+    showLookup(lookupWord);
+  });
+
+  lookup.addEventListener("click", function (event) {
+    if (event.target.getAttribute("data-lookup-close") === "true") {
+      event.preventDefault();
+      event.stopPropagation();
+      closeLookup();
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closeLookup();
+  });
+})();
+</script>

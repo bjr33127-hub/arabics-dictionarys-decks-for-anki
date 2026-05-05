@@ -1,0 +1,515 @@
+.card {
+  --page-bg: #f3ecdc;
+  --page-bg-2: #e7dcc7;
+  --frame-bg: #fffaf0;
+  --frame-bg-soft: rgba(255, 255, 255, 0.58);
+  --frame-border: rgba(117, 88, 38, 0.24);
+  --top-bg: rgba(123, 96, 48, 0.07);
+  --rule: rgba(117, 88, 38, 0.18);
+  --rule-strong: #a46f24;
+  --shadow: rgba(90, 63, 25, 0.18);
+  --inset: rgba(255, 255, 255, 0.85);
+  --text: #2c2418;
+  --text-soft: #4b4032;
+  --muted: #736858;
+  --word: #24190e;
+  --definition: #2f2619;
+  --accent: #a46f24;
+  --accent-2: #116b55;
+  --accent-soft: rgba(164, 111, 36, 0.14);
+  --note-bg: rgba(17, 107, 85, 0.10);
+  --note-border: rgba(17, 107, 85, 0.26);
+  --note-text: #0f604c;
+  --quran-bg: rgba(49, 104, 157, 0.11);
+  --quran-text: #245f94;
+  --num-bg: #a46f24;
+  --num-text: #fffaf0;
+  --selection: rgba(164, 111, 36, 0.25);
+  --overlay: rgba(47, 38, 25, 0.42);
+  --token-underline: rgba(164, 111, 36, 0.45);
+  --token-hover: rgba(164, 111, 36, 0.12);
+  margin: 0;
+  padding: 0;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family:
+    "Noto Naskh Arabic",
+    "Amiri",
+    "Scheherazade New",
+    "Times New Roman",
+    serif;
+}
+
+.card.nightMode,
+.nightMode .card {
+  --page-bg: #101113;
+  --page-bg-2: #151a1d;
+  --frame-bg: #17191c;
+  --frame-bg-soft: rgba(255, 255, 255, 0.055);
+  --frame-border: rgba(230, 206, 150, 0.28);
+  --top-bg: rgba(255, 255, 255, 0.035);
+  --rule: rgba(230, 206, 150, 0.18);
+  --rule-strong: #d9bd75;
+  --shadow: rgba(0, 0, 0, 0.34);
+  --inset: rgba(255, 255, 255, 0.08);
+  --text: #f7f2e8;
+  --text-soft: #f4efe3;
+  --muted: #b8c2bd;
+  --word: #fff7df;
+  --definition: #f4efe3;
+  --accent: #e9d89b;
+  --accent-2: #bfe6d0;
+  --accent-soft: rgba(217, 189, 117, 0.18);
+  --note-bg: rgba(143, 184, 164, 0.12);
+  --note-border: rgba(143, 184, 164, 0.38);
+  --note-text: #cdeedd;
+  --quran-bg: rgba(142, 180, 227, 0.14);
+  --quran-text: #d9e9ff;
+  --num-bg: #d9bd75;
+  --num-text: #17191c;
+  --selection: rgba(217, 189, 117, 0.35);
+  --overlay: rgba(0, 0, 0, 0.66);
+  --token-underline: rgba(233, 216, 155, 0.48);
+  --token-hover: rgba(217, 189, 117, 0.15);
+}
+
+.lex-card,
+.lex-card * {
+  box-sizing: border-box;
+}
+
+.lex-card {
+  min-height: 100vh;
+  direction: rtl;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 14px;
+  background:
+    radial-gradient(circle at 50% 0%, var(--accent-soft), transparent 34%),
+    linear-gradient(135deg, var(--page-bg) 0%, var(--page-bg-2) 52%, var(--page-bg) 100%);
+}
+
+.lex-frame {
+  width: min(900px, 100%);
+  border: 1px solid var(--frame-border);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, var(--frame-bg-soft), rgba(255, 255, 255, 0.02)),
+    var(--frame-bg);
+  box-shadow:
+    0 28px 80px var(--shadow),
+    inset 0 1px 0 var(--inset);
+  overflow: hidden;
+}
+
+.lex-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--top-bg);
+}
+
+.lex-top-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lex-chip {
+  direction: ltr;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  min-height: 30px;
+  padding: 4px 12px;
+  border: 1px solid var(--frame-border);
+  border-radius: 999px;
+  color: var(--accent);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.lex-label,
+.lex-section-title,
+.lex-foot {
+  color: var(--muted);
+  font-family:
+    "Noto Sans Arabic",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+.lex-label {
+  font-size: 14px;
+}
+
+.lex-lang-control {
+  direction: ltr;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family:
+    "Noto Sans Arabic",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lex-lang-select {
+  max-width: 132px;
+  min-height: 32px;
+  border: 1px solid var(--frame-border);
+  border-radius: 8px;
+  background: var(--frame-bg);
+  color: var(--text);
+  padding: 4px 28px 4px 10px;
+  font: inherit;
+  font-weight: 800;
+}
+
+.lex-lang-select:focus {
+  outline: 2px solid var(--selection);
+  outline-offset: 2px;
+}
+
+.lex-word-wrap {
+  padding: 58px 34px 50px;
+}
+
+.lex-word-wrap.compact {
+  padding: 30px 34px 26px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.lex-word {
+  color: var(--word);
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+  text-shadow: 0 2px 24px rgba(232, 198, 116, 0.13);
+}
+
+.lex-definition-panel {
+  padding: 28px 34px 36px;
+}
+
+.lex-section-title {
+  width: max-content;
+  margin-bottom: 18px;
+  padding-bottom: 7px;
+  border-bottom: 2px solid var(--rule-strong);
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.lex-definition {
+  color: var(--definition);
+  font-size: 28px;
+  line-height: 2.05;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.lex-hi-headword,
+.lex-hi-term,
+.lex-hi-note,
+.lex-hi-quran,
+.lex-hi-num {
+  border-radius: 7px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.lex-hi-headword {
+  padding: 0 0.14em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.lex-hi-term {
+  padding: 0 0.16em;
+  color: var(--accent-2);
+  font-weight: 800;
+}
+
+.lex-hi-note {
+  padding: 0.05em 0.28em;
+  border: 1px solid var(--note-border);
+  background: var(--note-bg);
+  color: var(--note-text);
+  font-family:
+    "Noto Sans Arabic",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  font-size: 0.88em;
+}
+
+.lex-hi-quran {
+  padding: 0.08em 0.26em;
+  background: var(--quran-bg);
+  color: var(--quran-text);
+  font-weight: 700;
+}
+
+.lex-hi-num {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.65em;
+  margin: 0 0.08em;
+  padding: 0.02em 0.22em;
+  background: var(--num-bg);
+  color: var(--num-text);
+  font-family: Arial, sans-serif;
+  font-size: 0.72em;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.lex-token {
+  cursor: pointer;
+  border-bottom: 1px dotted var(--token-underline);
+  border-radius: 5px;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
+}
+
+.lex-token:hover,
+.lex-token:active {
+  background: var(--token-hover);
+  border-bottom-color: var(--accent);
+}
+
+.lex-lookup {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  direction: rtl;
+}
+
+.lex-lookup.is-open {
+  display: flex;
+}
+
+.lex-lookup-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+  backdrop-filter: blur(8px);
+}
+
+.lex-lookup-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: min(1120px, 96vw);
+  max-height: 92vh;
+  border: 1px solid var(--frame-border);
+  border-radius: 18px;
+  background: var(--frame-bg);
+  box-shadow: 0 30px 90px var(--shadow);
+  overflow: hidden;
+}
+
+.lex-lookup-panel-compact {
+  width: min(640px, 94vw);
+}
+
+.lex-lookup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--top-bg);
+}
+
+.lex-lookup-kicker,
+.lex-lookup-hint,
+.lex-lookup-link,
+.lex-lookup-close {
+  font-family:
+    "Noto Sans Arabic",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+.lex-lookup-kicker {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.lex-lookup-word {
+  color: var(--word);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.lex-lookup-close {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--frame-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lex-lookup-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.lex-lookup-link {
+  direction: ltr;
+  color: var(--num-text);
+  background: var(--num-bg);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lex-lookup-hint {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: left;
+  direction: ltr;
+}
+
+.lex-lookup-frame {
+  flex: 1;
+  width: 100%;
+  min-height: 620px;
+  border: 0;
+  background: #ffffff;
+}
+
+.lex-lookup-frame[hidden] {
+  display: none !important;
+}
+
+.lex-definition::selection,
+.lex-word::selection {
+  background: var(--selection);
+}
+
+.lex-foot {
+  padding: 18px 22px 22px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.mobile .lex-card {
+  padding: 14px 8px;
+}
+
+.mobile .lex-frame {
+  border-radius: 14px;
+}
+
+.mobile .lex-top {
+  align-items: flex-start;
+  padding: 14px 16px;
+}
+
+.mobile .lex-lang-control {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.mobile .lex-lang-select {
+  max-width: min(190px, 58vw);
+}
+
+.mobile .lex-word-wrap {
+  padding: 40px 18px 34px;
+}
+
+.mobile .lex-word-wrap.compact {
+  padding: 24px 18px 20px;
+}
+
+.mobile .lex-word {
+  font-size: 40px;
+}
+
+.mobile .lex-definition-panel {
+  padding: 22px 18px 28px;
+}
+
+.mobile .lex-definition {
+  font-size: 23px;
+  line-height: 2;
+}
+
+.mobile .lex-lookup {
+  padding: 8px;
+}
+
+.mobile .lex-lookup-panel {
+  width: 100%;
+  max-height: 94vh;
+  border-radius: 12px;
+}
+
+.mobile .lex-lookup-header {
+  padding: 12px 14px;
+}
+
+.mobile .lex-lookup-word {
+  font-size: 28px;
+}
+
+.mobile .lex-lookup-actions {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.mobile .lex-lookup-frame {
+  min-height: 0;
+}

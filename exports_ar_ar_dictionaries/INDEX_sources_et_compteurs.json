@@ -1,0 +1,83 @@
+[
+  {
+    "dictionary": "MURAD",
+    "rows": 95745,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_murad.csv",
+    "source": "local HuggingFace MURAD export already present",
+    "source_table": "",
+    "status": "copied_existing",
+    "skipped_empty": 0
+  },
+  {
+    "dictionary": "Al-Ghani",
+    "rows": 29810,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_al_ghani.csv",
+    "source": "wizsk/arabic_lexicons assets/data/db/db.sqlite.zip",
+    "source_table": "mujamul_ghoni",
+    "status": "exported",
+    "skipped_empty": 0
+  },
+  {
+    "dictionary": "Mukhtar/Al-Sihah",
+    "rows": 5650,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_mukhtar_al_sihah.csv",
+    "source": "wizsk/arabic_lexicons assets/data/db/db.sqlite.zip",
+    "source_table": "mujamul_shihah",
+    "status": "exported",
+    "skipped_empty": 0
+  },
+  {
+    "dictionary": "Lisan al-Arab",
+    "rows": 9352,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_lisan_al_arab.csv",
+    "source": "wizsk/arabic_lexicons assets/data/db/db.sqlite.zip",
+    "source_table": "lisanularab",
+    "status": "exported",
+    "skipped_empty": 0
+  },
+  {
+    "dictionary": "Al-Mujam al-Muasirah",
+    "rows": 32297,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_al_muashirah.csv",
+    "source": "wizsk/arabic_lexicons assets/data/db/db.sqlite.zip",
+    "source_table": "mujamul_muashiroh",
+    "status": "exported",
+    "skipped_empty": 0
+  },
+  {
+    "dictionary": "Al-Mujam al-Waseet",
+    "rows": 6763,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_al_waseet.csv",
+    "source": "wizsk/arabic_lexicons assets/data/db/db.sqlite.zip",
+    "source_table": "mujamul_wasith",
+    "status": "exported",
+    "skipped_empty": 0
+  },
+  {
+    "dictionary": "Al-Qamus al-Muhit",
+    "rows": 38944,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_qamus_al_muhit.csv",
+    "source": "wizsk/arabic_lexicons assets/data/db/db.sqlite.zip",
+    "source_table": "mujamul_muhith",
+    "status": "exported",
+    "skipped_empty": 0
+  },
+  {
+    "dictionary": "Maqayis al-Lugha",
+    "rows": 5274,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_maqayis_al_lugha.csv",
+    "source": "wizsk/arabic_lexicons assets/data/db/db.sqlite.zip",
+    "source_table": "maqayeesul_luga",
+    "status": "exported",
+    "skipped_empty": 0
+  },
+  {
+    "dictionary": "Mufradat Alfaz al-Quran",
+    "rows": 1630,
+    "file": "exports_ar_ar_dictionaries\\dictionnaire_ar_ar_mufradat_alfaz_al_quran.csv",
+    "source": "wizsk/arabic_lexicons assets/data/db/db.sqlite.zip",
+    "source_table": "mufradat_alfajul_quran",
+    "status": "exported",
+    "skipped_empty": 0
+  }
+]
